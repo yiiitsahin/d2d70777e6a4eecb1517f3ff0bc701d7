@@ -9,6 +9,9 @@ import {
   faCreditCard,
 } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import API from "@/api";
+
+Vue.prototype.$http = API;
 
 Vue.use(ElementUI, { locale });
 
