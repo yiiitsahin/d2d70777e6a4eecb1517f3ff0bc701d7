@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import ReservationStepStatusItem from "./ReservationStepStatusItem";
 import ReservationStepStatusBar from "./ReservationStepStatusBar";
 import STEPS from "@/constants/reservationSteps";
@@ -31,11 +32,16 @@ export default {
     ReservationStepStatusBar,
   },
   computed: {
+    ...mapGetters({
+      currentStep: "reservations/currentStep",
+    }),
     steps() {
       return STEPS;
     },
     barPercent() {
-      return 50;
+      let percent = this.currentStep * 50;
+      if (percent > 100) percent = 100;
+      return percent;
     },
   },
 };

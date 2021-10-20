@@ -18,10 +18,9 @@
       align-items: center;
       justify-content: center;
       background-color: $gray-light;
+      transition: background-color .3s ease-in-out;
       color: #fff;
       font-size: 35px;
-    }
-    &-title {
     }
     &.current {
       .reservation-step-status__item-image {
@@ -51,7 +50,7 @@
         background-color: $green;
         left: 0;
         position: absolute;
-        transition: width .2s ease-in;
+        transition: width .3s ease-in-out;
       }
     }
   }

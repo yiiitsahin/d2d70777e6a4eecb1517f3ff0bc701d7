@@ -1,5 +1,11 @@
 <template>
-  <div class="reservation-step-status__item">
+  <div
+    class="reservation-step-status__item"
+    :class="[
+      currentStep === step ? 'current' : '',
+      currentStep > step ? 'completed' : '',
+    ]"
+  >
     <div class="reservation-step-status__item-image">
       <FontAwesomeIcon :icon="icon" />
     </div>
@@ -8,6 +14,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   name: "ReservationStepStatusItem",
   props: {
@@ -23,6 +30,11 @@ export default {
       type: Number,
       default: 0,
     },
+  },
+  computed: {
+    ...mapGetters({
+      currentStep: "reservations/currentStep",
+    }),
   },
 };
 </script>
