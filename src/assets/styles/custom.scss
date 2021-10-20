@@ -13,3 +13,11 @@ body {
 .main__content {
     padding: 30px 0;
 }
+
+.required {
+    &::before {
+        content: "*";
+        color: $red;
+        margin-right: 2px;
+    }
+}

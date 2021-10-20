@@ -1,5 +1,5 @@
 <template>
-  <div>PreviewAndPaymentStep</div>
+  <div class="reservation-step">PreviewAndPaymentStep</div>
 </template>
 
 <script>

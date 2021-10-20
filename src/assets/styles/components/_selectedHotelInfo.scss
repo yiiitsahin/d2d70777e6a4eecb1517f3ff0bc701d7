@@ -1,0 +1,21 @@
+.selected-hotel-info {
+    &__title {
+        display: flex;
+        align-items: center;
+        &-name {
+            font-weight: 600;
+            font-size: 20px;
+            margin-right: 10px;
+        }
+        &-city {
+            font-weight: 400;
+            font-size: 14px;
+        }
+    }
+    &__info {
+        margin-top: 5px;
+        &-label {
+            font-weight: 600;
+        }
+    }
+}
