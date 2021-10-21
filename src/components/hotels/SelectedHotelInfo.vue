@@ -1,31 +1,40 @@
 <template>
   <div class="selected-hotel-info">
     <div class="selected-hotel-info__title">
-      <span class="selected-hotel-info__title-name">{{
-        hotelInfo && hotelInfo.hotel_name
-      }}</span>
-      <span class="selected-hotel-info__title-city">
-        ({{ hotelInfo && hotelInfo.city }})</span
+      <span
+        class="selected-hotel-info__title-name"
+        v-if="hotelProperties.hotelName"
+        >{{ hotelProperties.hotelName }}</span
+      >
+      <span
+        class="selected-hotel-info__title-city"
+        v-if="hotelProperties.hotelCity"
+      >
+        ({{ hotelProperties.hotelCity }})</span
       >
     </div>
     <div class="selected-hotel-info__info">
       <span>
         <span class="selected-hotel-info__info-label">Giriş-Çıkış Tarihi:</span>
         <span>
-          {{ $dayjs(formValues.start_date).format("DD MMMM YYYY dddd") }}</span
+          {{
+            $dayjs(hotelProperties.startDate).format("DD MMMM YYYY dddd")
+          }}</span
         >
         -
         <span>
-          {{ $dayjs(formValues.end_date).format("DD MMMM YYYY dddd") }}</span
+          {{
+            $dayjs(hotelProperties.endDate).format("DD MMMM YYYY dddd")
+          }}</span
         >
       </span>
     </div>
     <div class="selected-hotel-info__info">
       <span>
         <span class="selected-hotel-info__info-label">Yetişkin:</span>
-        <span> {{ formValues.adult }} </span>
+        <span> {{ hotelProperties.adultCount }} </span>
         <span class="selected-hotel-info__info-label">Çocuk:</span>
-        <span> {{ formValues.child }} </span>
+        <span> {{ hotelProperties.childCount }} </span>
       </span>
     </div>
   </div>
@@ -37,8 +46,7 @@ export default {
   name: "SelectedHotelInfo",
   computed: {
     ...mapGetters({
-      formValues: "reservations/formValues",
-      hotelInfo: "hotels/savedHotelDetails",
+      hotelProperties: "hotels/properties",
     }),
   },
 };

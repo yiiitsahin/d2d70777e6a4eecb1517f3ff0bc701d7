@@ -69,10 +69,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      formValues: "reservations/formValues",
-      hotelInfo: "hotels/savedHotelDetails",
       hotelProperties: "hotels/properties",
-      reservationDays: "reservations/reservationDays",
     }),
     items() {
       return [
