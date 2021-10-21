@@ -1,4 +1,9 @@
-import { getReservations } from "@/api/routes/reservations";
+import {
+  getReservations,
+  completeReservation,
+  updateReservation,
+  deleteReservation,
+} from "@/api/routes/reservations";
 import { getDayDiff } from "@/helpers";
 import STEPS from "@/constants/reservationSteps";
 import STORAGE_KEY from "@/constants/localStorageKeys";
@@ -10,6 +15,7 @@ const reservations = {
     reservations: [],
     currentStep: STEPS.HOTEL_AND_DATE,
     formValues: {},
+    reservationId: null,
   },
 
   getters: {
@@ -31,6 +37,9 @@ const reservations = {
       }
       return 0;
     },
+    reservationId(state) {
+      return state.reservationId;
+    },
   },
 
   mutations: {
@@ -42,6 +51,12 @@ const reservations = {
     },
     SET_FORM_VALUES(state, data) {
       state.formValues = { ...state.formValues, ...data };
+    },
+    SET_RESERVATION_ID(state, id) {
+      state.reservationId = id;
+    },
+    CLEAR_FORM_VALUES(state) {
+      state.formValues = {};
     },
   },
 
@@ -73,6 +88,37 @@ const reservations = {
       );
       commit("SET_STEP", step);
       commit("SET_FORM_VALUES", formValues);
+    },
+    async CompleteReservation({ commit }, payload) {
+      try {
+        const reservation = await completeReservation(payload);
+        const reservationId = reservation.data.id;
+        commit("SET_RESERVATION_ID", reservationId);
+        // eslint-disable-next-line no-empty
+      } catch (ex) {}
+    },
+    async UpdateReservation({ commit }, { id, payload }) {
+      try {
+        const reservation = await updateReservation(id, payload);
+        const reservationId = reservation.data.id;
+        commit("SET_RESERVATION_ID", reservationId);
+        // eslint-disable-next-line no-empty
+      } catch (ex) {}
+    },
+    async DeleteReservation({ commit }, id) {
+      try {
+        await deleteReservation(id);
+        commit("SET_RESERVATION_ID", null);
+        // eslint-disable-next-line no-empty
+      } catch (ex) {}
+    },
+    async ResumeApp({ commit }) {
+      localStorage.removeItem(STORAGE_KEY.CURRENT_STEP);
+      localStorage.removeItem(STORAGE_KEY.RESERVATION_DATA);
+      commit("CLEAR_FORM_VALUES");
+      commit("SET_RESERVATION_ID", null);
+      commit("SET_STEP", STEPS.HOTEL_AND_DATE);
+      commit("payment/clearCardFields", null, { root: true });
     },
   },
 };

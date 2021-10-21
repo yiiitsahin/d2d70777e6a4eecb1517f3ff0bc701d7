@@ -10,7 +10,7 @@ export function getReservation(id) {
   return API.get(`${reservations}/${id}`);
 }
 
-export function addReservation(payload) {
+export function completeReservation(payload) {
   return API.post(`${reservations}`, payload);
 }
 

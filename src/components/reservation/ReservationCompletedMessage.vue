@@ -23,7 +23,10 @@
             >
           </div>
           <div class="reservation-completed-message-box__actions-item">
-            <el-button type="primary" @click="handleCancelReservation"
+            <el-button
+              type="primary"
+              :loading="isDeleting"
+              @click="handleCancelReservation"
               >Rezervasyonu İptal Et</el-button
             >
           </div>
@@ -34,11 +37,33 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex";
+import STEPS from "@/constants/reservationSteps";
+
 export default {
   name: "ReservationCompletedMessage",
+  data() {
+    return {
+      isDeleting: false,
+    };
+  },
+  computed: {
+    ...mapGetters({
+      reservationId: "reservations/reservationId",
+    }),
+  },
   methods: {
-    handleNewReservation() {},
-    handleUpdateReservation() {},
+    ...mapActions({
+      setStep: "reservations/SetStep",
+      deleteReservation: "reservations/DeleteReservation",
+      resumeApp: "reservations/ResumeApp",
+    }),
+    handleNewReservation() {
+      this.resumeApp();
+    },
+    handleUpdateReservation() {
+      this.setStep(STEPS.HOTEL_AND_DATE);
+    },
     handleCancelReservation() {
       this.$confirm(
         "Rezervasyon kaydınızı iptal etmek istediğinize emin misiniz?",
@@ -49,12 +74,21 @@ export default {
           type: "warning",
         }
       )
-        .then(() => {
-          console.log("İşlemi Yap");
+        .then(async () => {
+          try {
+            this.isDeleting = true;
+            const reservationId = this.reservationId;
+            await this.deleteReservation(reservationId);
+            this.$notify.success({
+              title: "Başarılı",
+              message: `${reservationId} id'li rezervasyon başarıyla iptal edilmiştir.`,
+            });
+            this.resumeApp();
+          } finally {
+            this.isDeleting = false;
+          }
         })
-        .catch(() => {
-          console.log("İşlemi Yapma!");
-        });
+        .catch(() => {});
     },
   },
 };
