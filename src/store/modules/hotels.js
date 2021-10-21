@@ -16,15 +16,21 @@ const hotels = {
     hotelsDetails(state) {
       return state.hotelsDetails;
     },
+    hotelNames(state) {
+      const hotels = state.hotels;
+      return hotels.reduce((acc, current) => {
+        acc[current.id] = current.hotel_name;
+        return acc;
+      }, {});
+    },
     savedHotelDetails(state) {
       const selectedHotel = store.getters["reservations/formValues"].hotel_id;
       const hotel = state.hotelsDetails.filter(
         (hotel) => hotel.hotel_id === selectedHotel
       );
       if (hotel.length !== 0) {
-        const hotel_name = state.hotels.filter(
-          (hotel) => +hotel.id === selectedHotel
-        )[0].hotel_name;
+        const hotel_name =
+          store.getters["hotels/hotelNames"][`${selectedHotel}`];
         return { hotel_name, ...hotel[0] };
       }
       return {};
@@ -52,6 +58,13 @@ const hotels = {
     GetAll({ dispatch }) {
       dispatch("GetHotels");
       dispatch("GetHotelsDetails");
+    },
+    async GetHotelName({ state }, id) {
+      const hotel = state.hotels.filter((hotel) => +hotel.id === id);
+      if (hotel.length) {
+        return hotel[0].hotel_name;
+      }
+      return "";
     },
   },
 };

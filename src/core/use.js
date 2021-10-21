@@ -3,7 +3,11 @@ import "element-ui/lib/theme-chalk/index.css";
 import ElementUI from "element-ui";
 import locale from "element-ui/lib/locale/lang/tr-TR";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faBed, faAngleDoubleLeft } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBed,
+  faAngleDoubleLeft,
+  faLiraSign,
+} from "@fortawesome/free-solid-svg-icons";
 import dayjs from "dayjs";
 import locale_tr from "dayjs/locale/tr";
 import {
@@ -19,5 +23,5 @@ Vue.prototype.$dayjs = dayjs;
 
 Vue.use(ElementUI, { locale });
 
-library.add(faCalendarAlt, faBed, faCreditCard, faAngleDoubleLeft);
+library.add(faCalendarAlt, faBed, faCreditCard, faAngleDoubleLeft, faLiraSign);
 Vue.component("FontAwesomeIcon", FontAwesomeIcon);

@@ -56,11 +56,14 @@ const reservations = {
     async SetFormValues({ commit }, data) {
       commit("SET_FORM_VALUES", data);
     },
-    SaveReservationValues({ commit }, { data, step }) {
+    SaveReservationValues({ commit, state }, { data, step }) {
       commit("SET_STEP", step);
       commit("SET_FORM_VALUES", data);
       localStorage.setItem(STORAGE_KEY.CURRENT_STEP, step);
-      localStorage.setItem(STORAGE_KEY.RESERVATION_DATA, JSON.stringify(data));
+      localStorage.setItem(
+        STORAGE_KEY.RESERVATION_DATA,
+        JSON.stringify(state.formValues)
+      );
     },
     FetchLocalStorageValues({ commit }) {
       const step =

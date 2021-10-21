@@ -1,3 +1,3 @@
-import RadioSelect from "./RadioSelect";
+import RoomFeatureSelect from "./RoomFeatureSelect";
 
-export { RadioSelect };
+export { RoomFeatureSelect };

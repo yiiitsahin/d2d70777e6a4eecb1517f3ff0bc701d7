@@ -89,17 +89,20 @@
     }
     &-title {
         margin: 15px 0 0;
-        font-weight: 600;
     }
     &.current {
       .reservation-step-status__item-image {
         background-color: $primary;
+      }
+      .reservation-step-status__item-title {
+        font-weight: 600;
       }
     }
     &.completed {
       .reservation-step-status__item-image {
         background-color: $green;
       }
+
     }
   }
 

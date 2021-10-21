@@ -110,17 +110,13 @@ export default {
     },
   },
   mounted() {
-    console.log("Mounted--------------");
-    this.init();
+    this.prepareForm();
   },
   methods: {
     ...mapActions({
       setFormValues: "reservations/SetFormValues",
       saveReservationValues: "reservations/SaveReservationValues",
     }),
-    init() {
-      this.prepareForm();
-    },
     prepareForm() {
       if (this.formValues && this.formValues.hotel_id) {
         const { hotel_id, adult, child, start_date, end_date } =

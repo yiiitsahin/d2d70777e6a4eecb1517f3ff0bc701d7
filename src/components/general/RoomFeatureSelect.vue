@@ -1,18 +1,21 @@
 <template>
   <div class="radio-select">
-    RadioSelectItem
-    <RadioSelectItem
+    <RoomFeatureSelectItem
       v-for="item in items"
-      :key="item.id"
+      :item="item"
+      :key="`${item.id}-${item.title}`"
+      :active="item.id === value"
+      :day="day"
+      :type="type"
       @itemChanged="handleChange"
     />
   </div>
 </template>
 
 <script>
-import RadioSelectItem from "./RadioSelectItem";
+import RoomFeatureSelectItem from "./RoomFeatureSelectItem";
 export default {
-  name: "RadioSelect",
+  name: "RoomFeatureSelect",
   props: {
     value: {
       type: [String, Number],
@@ -22,6 +25,14 @@ export default {
       type: Array,
       default: () => {},
     },
+    day: {
+      type: Number,
+      default: 0,
+    },
+    type: {
+      type: String,
+      default: "room_type",
+    },
   },
   data() {
     return {
@@ -29,7 +40,7 @@ export default {
     };
   },
   components: {
-    RadioSelectItem,
+    RoomFeatureSelectItem,
   },
   methods: {
     handleChange(e) {
