@@ -4,4 +4,13 @@
     max-width: 600px;
     margin: 0 auto;
   }
+  &__actions {
+    display: flex;
+    &-item {
+      margin-right: 15px;
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
 }

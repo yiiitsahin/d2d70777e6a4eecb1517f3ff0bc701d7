@@ -1,32 +1,34 @@
 <template>
   <div class="radio-select__item" :class="{ active }" @click="handleSelect">
-    <div class="radio-select__item-image" v-if="item.photo">
-      <img :src="item.photo" :alt="item.title" />
-    </div>
-    <div class="radio-select__item-container">
-      <div class="radio-select__item-title">{{ item.title }}</div>
-      <div class="radio-select__item-info">
-        <template v-if="type === 'room_type'">
-          <div class="radio-select__item-info-text">
-            <div v-if="day">{{ day }} gün</div>
-            <div>{{ formValues.adult }} Yetişkin</div>
-          </div>
-          <div class="radio-select__item-info-number">
-            {{ totalPrice }}
-            <FontAwesomeIcon :icon="['fas', 'lira-sign']" size="xs" />
-          </div>
-        </template>
-        <template v-else>
-          <div class="radio-select__item-info-text">
-            <div>Fiyata Etki Oranı</div>
-          </div>
-          <div
-            class="radio-select__item-info-number"
-            v-if="type === 'room_scenic'"
-          >
-            +{{ item.price_rate }}%
-          </div>
-        </template>
+    <div class="radio-select__item-wrapper">
+      <div class="radio-select__item-image" v-if="item.photo">
+        <img :src="item.photo" :alt="item.title" />
+      </div>
+      <div class="radio-select__item-container">
+        <div class="radio-select__item-title">{{ item.title }}</div>
+        <div class="radio-select__item-info">
+          <template v-if="type === 'room_type'">
+            <div class="radio-select__item-info-text">
+              <div v-if="day">{{ day }} gün</div>
+              <div>{{ formValues.adult }} Yetişkin</div>
+            </div>
+            <div class="radio-select__item-info-number">
+              {{ totalPrice }}
+              <FontAwesomeIcon :icon="['fas', 'lira-sign']" size="xs" />
+            </div>
+          </template>
+          <template v-else>
+            <div class="radio-select__item-info-text">
+              <div>Fiyata Etki Oranı</div>
+            </div>
+            <div
+              class="radio-select__item-info-number"
+              v-if="type === 'room_scenic'"
+            >
+              +{{ item.price_rate }}%
+            </div>
+          </template>
+        </div>
       </div>
     </div>
   </div>

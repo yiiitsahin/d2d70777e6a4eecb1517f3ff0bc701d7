@@ -2,21 +2,21 @@
   display: flex;
   &__item {
     width: 33.3333%;
-    border: 2px solid $gray;
-    border-radius: 4px;
-    margin-right: 15px;
-    margin-bottom: 15px;
-    cursor: pointer;
-    overflow: hidden;
-    box-shadow: 0 0 0 0 $gray;
-    transition: border-color 0.25s ease, box-shadow 0.25s ease;
-    &:last-child {
-      margin-right: 0;
+    padding: 10px;
+    &-wrapper {
+      border: 2px solid $gray;
+      border-radius: 4px;
+      cursor: pointer;
+      overflow: hidden;
+      box-shadow: 0 0 0 0 $gray;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease;
     }
     min-height: 150px;
     &.active {
-      border-color: $green;
-      box-shadow: 0 0 0 2px #16a085;
+      .radio-select__item-wrapper {
+        border-color: $green;
+        box-shadow: 0 0 0 2px #16a085;
+      }
     }
     &-image {
       img {
@@ -51,5 +51,6 @@
         }
       }
     }
+
   }
 }

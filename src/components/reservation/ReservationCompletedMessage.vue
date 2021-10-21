@@ -12,17 +12,21 @@
           kullanabilirsiniz.
         </p>
         <div class="reservation-completed-message-box__actions">
-          <el-button type="primary" @click="handleNewReservation"
-            >Yeni Rezervasyon Yap</el-button
-          >
-
-          <el-button type="primary" @click="handleUpdateReservation"
-            >Rezervasyon Güncelle</el-button
-          >
-
-          <el-button type="primary" @click="handleCancelReservation"
-            >Rezervasyonu İptal Et</el-button
-          >
+          <div class="reservation-completed-message-box__actions-item">
+            <el-button type="primary" @click="handleNewReservation"
+              >Yeni Rezervasyon Yap</el-button
+            >
+          </div>
+          <div class="reservation-completed-message-box__actions-item">
+            <el-button type="primary" @click="handleUpdateReservation"
+              >Rezervasyon Güncelle</el-button
+            >
+          </div>
+          <div class="reservation-completed-message-box__actions-item">
+            <el-button type="primary" @click="handleCancelReservation"
+              >Rezervasyonu İptal Et</el-button
+            >
+          </div>
         </div>
       </div>
     </div>

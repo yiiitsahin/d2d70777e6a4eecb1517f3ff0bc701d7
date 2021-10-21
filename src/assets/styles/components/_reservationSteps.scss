@@ -46,6 +46,8 @@
     border: 1px solid $gray;
     display: flex;
     justify-content: space-between;
+    position: sticky;
+    bottom: 0;
   }
 
   &__hotel-info {
@@ -81,6 +83,12 @@
   display: flex;
   justify-content: space-between;
   position: relative;
+  padding: 30px 0;
+  position: sticky;
+  top: 80px;
+  background-color: $white;
+  box-shadow: 0 2px 0px $gray;
+  z-index: 90;
 
   &__item {
     max-width: 110px;
@@ -122,7 +130,7 @@
   &__bar {
     position: absolute;
     width: 100%;
-    top: 35px;
+    top: 65px;
     z-index: -2;
     padding: 0 55px;
     &-item {
