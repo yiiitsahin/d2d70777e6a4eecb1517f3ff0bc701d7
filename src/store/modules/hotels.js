@@ -7,6 +7,7 @@ const hotels = {
   state: {
     hotels: [],
     hotelsDetails: [],
+    coupon: null,
   },
 
   getters: {
@@ -35,6 +36,102 @@ const hotels = {
       }
       return {};
     },
+    roomType() {
+      const roomTypes =
+        (store.getters["hotels/savedHotelDetails"] &&
+          store.getters["hotels/savedHotelDetails"].room_type) ||
+        [];
+      if (roomTypes.length > 0) {
+        return roomTypes.filter(
+          (item) =>
+            item.id === store.getters["reservations/formValues"].room_type
+        )[0];
+      }
+    },
+    sceneType() {
+      const sceneTypes =
+        (store.getters["hotels/savedHotelDetails"] &&
+          store.getters["hotels/savedHotelDetails"].room_scenic) ||
+        [];
+      if (sceneTypes.length > 0) {
+        return sceneTypes.filter(
+          (item) =>
+            item.id === store.getters["reservations/formValues"].room_scenic
+        )[0];
+      }
+    },
+    roomPrice() {
+      return (
+        (store.getters["hotels/roomType"] &&
+          store.getters["hotels/roomType"].price) ||
+        0
+      );
+    },
+    priceRate() {
+      return (
+        store.getters["hotels/sceneType"] &&
+        store.getters["hotels/sceneType"].price_rate
+      );
+    },
+    percentFactor() {
+      return 1 + store.getters["hotels/priceRate"] / 100;
+    },
+    adultCount() {
+      return store.getters["reservations/formValues"].adult;
+    },
+    childCount() {
+      return store.getters["reservations/formValues"].child;
+    },
+    accommodationPrice() {
+      return (
+        store.getters["reservations/reservationDays"] *
+        store.getters["hotels/adultCount"] *
+        store.getters["hotels/roomPrice"]
+      );
+    },
+    discount() {
+      return 0;
+    },
+    totalPrice() {
+      const percentFactor = store.getters["hotels/percentFactor"];
+      const accommodationPrice = store.getters["hotels/accommodationPrice"];
+      const discount = store.getters["hotels/discount"];
+      const total = Math.floor(accommodationPrice * percentFactor - discount);
+      return total;
+    },
+    properties() {
+      const accommodationPrice = store.getters["hotels/accommodationPrice"];
+      const adultCount = store.getters["hotels/adultCount"];
+      const roomType = store.getters["hotels/roomType"];
+      const sceneType = store.getters["hotels/sceneType"];
+      const roomPrice = store.getters["hotels/roomPrice"];
+      const discount = store.getters["hotels/discount"];
+      const totalPrice = store.getters["hotels/totalPrice"];
+      const priceRate = store.getters["hotels/priceRate"];
+      const reservationDays = store.getters["reservations/reservationDays"];
+      const childCount = store.getters["hotels/childCount"];
+      const hotelName = store.getters["hotels/savedHotelDetails"].hotel_name;
+      const hotelCity = store.getters["hotels/savedHotelDetails"].city;
+      const startDate =
+        store.getters["reservations/formValues"].start_date || null;
+      const endDate = store.getters["reservations/formValues"].end_date || null;
+      return {
+        accommodationPrice,
+        adultCount,
+        roomType,
+        sceneType,
+        discount,
+        totalPrice,
+        priceRate,
+        reservationDays,
+        childCount,
+        hotelName,
+        hotelCity,
+        startDate,
+        endDate,
+        roomPrice,
+      };
+    },
   },
 
   mutations: {
@@ -43,6 +140,9 @@ const hotels = {
     },
     SET_HOTELS_DETAILS(state, data) {
       state.hotelsDetails = data;
+    },
+    SET_COUPON(state, data) {
+      state.coupon = data;
     },
   },
 
@@ -59,12 +159,8 @@ const hotels = {
       dispatch("GetHotels");
       dispatch("GetHotelsDetails");
     },
-    async GetHotelName({ state }, id) {
-      const hotel = state.hotels.filter((hotel) => +hotel.id === id);
-      if (hotel.length) {
-        return hotel[0].hotel_name;
-      }
-      return "";
+    async SetCoupon({ commit }, data) {
+      commit("SET_COUPON", data);
     },
   },
 };

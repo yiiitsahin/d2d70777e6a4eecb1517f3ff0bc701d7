@@ -83,7 +83,6 @@ export default {
     prepareForm() {
       if (this.formValues && this.formValues.room_scenic) {
         const { room_type, room_scenic } = this.formValues;
-        console.log(room_scenic);
         this.selectedScene = room_scenic;
         this.selectedType = room_type;
       }

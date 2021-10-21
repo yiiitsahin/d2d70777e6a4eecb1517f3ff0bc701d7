@@ -1,66 +1,80 @@
 .reservation-step {
+  &__content {
+    padding: 15px;
+    border-radius: 5px;
+    border: 1px solid $gray;
+    overflow: hidden;
+  }
 
-    &__content {
-        padding: 15px;
-        border-radius: 5px;
-        border: 1px solid #eee;
-        overflow: hidden;
+  &-form {
+    margin-top: 15px;
+    &__label {
+      margin: 10px 0 5px;
     }
+    &__date-person {
+      display: flex;
+    }
+    &__date {
+      flex: 2;
+      .el-input__inner {
+        width: 100%;
+      }
+      padding-right: 16px;
+    }
+    &__person,
+    &__child {
+      .el-input-number {
+        width: 100%;
+      }
+      flex: 1;
+      padding: 0 8px;
+    }
+    &__child {
+      flex: 1;
+      padding: 0 8px;
+    }
+    &__alert {
+      margin-top: 10px;
+    }
+  }
 
-    &-form {
-        margin-top: 15px;
-        &__label {
-            margin: 10px 0 5px;
-        }
-        &__date-person {
-            display: flex;
-        }
-        &__date {
-            flex: 2;
-            .el-input__inner {
-                width: 100%;
-            }
-            padding-right: 16px;
-        }
-        &__person, &__child {
-            .el-input-number {
-                width: 100%;
-            }
-            flex: 1;
-            padding: 0 8px;
-        }
-        &__child {
-            flex: 1;
-            padding: 0 8px;
-        }
-        &__alert {
-            margin-top: 10px;
-        }
-    }
+  &__actions {
+    padding: 15px;
+    margin: 20px 0;
+    border-radius: 5px;
+    background-color: $gray;
+    border: 1px solid $gray;
+    display: flex;
+    justify-content: space-between;
+  }
 
-    &__actions {
-        padding: 15px;
-        margin: 20px 0;
-        border-radius: 5px;
-        background-color: #eee;
-        border: 1px solid #eee;
-        display: flex;
-        justify-content: space-between;
-    }
+  &__hotel-info {
+    margin-left: -15px;
+    margin-right: -15px;
+    margin-top: -15px;
+    background-color: $gray;
+    padding: 15px;
+  }
 
-    &__hotel-info {
-        margin-left: -15px;
-        margin-right: -15px;
-        margin-top: -15px;
-        background-color: #eee;
-        padding: 15px;
+  &__cols {
+    display: flex;
+    & > div {
+      width: 50%;
+      flex: 1;
+      &:first-child {
+        margin-right: 8px;
+      }
+      &:nth-child(2) {
+        margin-left: 8px;
+      }
     }
+  }
 }
 
 .reservation-steps {
-    &__content {
-        padding: 50px 0 0;
-    }
+  &__content {
+    padding: 50px 0 0;
+  }
 }
 
 .reservation-step-status {
@@ -83,12 +97,12 @@
       align-items: center;
       justify-content: center;
       background-color: $gray-light;
-      transition: background-color .3s ease-in-out;
+      transition: background-color 0.3s ease-in-out;
       color: #fff;
       font-size: 35px;
     }
     &-title {
-        margin: 15px 0 0;
+      margin: 15px 0 0;
     }
     &.current {
       .reservation-step-status__item-image {
@@ -102,7 +116,6 @@
       .reservation-step-status__item-image {
         background-color: $green;
       }
-
     }
   }
 
@@ -122,7 +135,7 @@
         background-color: $green;
         left: 0;
         position: absolute;
-        transition: width .3s ease-in-out;
+        transition: width 0.3s ease-in-out;
       }
     }
   }
