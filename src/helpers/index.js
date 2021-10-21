@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 
-function getDayDiff(start, end) {
+function getDayDiff(end, start = dayjs()) {
   return dayjs(end).diff(dayjs(start), "day");
 }
 

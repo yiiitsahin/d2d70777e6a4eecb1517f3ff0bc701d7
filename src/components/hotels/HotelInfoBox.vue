@@ -35,11 +35,11 @@
           <span
             ><b>Konaklama</b> ({{ hotelProperties.reservationDays }} gün,
             {{ hotelProperties.adultCount }} yetişkin)</span
-          ><span>{{ hotelProperties.accommodation || 0 }} TL</span>
+          ><span>{{ hotelProperties.accommodationPrice || 0 }} TL</span>
         </li>
-        <li class="text-green">
-          <span><b>İndirim</b> (COUPONCODE1)</span
-          ><span>-{{ hotelProperties.discountPrice }}</span>
+        <li class="text-green" v-if="hotelProperties.discount">
+          <span><b>İndirim</b> ({{ hotelProperties.coupon.code }})</span
+          ><span>-{{ hotelProperties.discount }} TL</span>
         </li>
       </ul>
       <div class="price-info-list__total">

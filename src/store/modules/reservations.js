@@ -25,8 +25,8 @@ const reservations = {
     reservationDays(state) {
       if (state.formValues.start_date) {
         return getDayDiff(
-          state.formValues.start_date,
-          state.formValues.end_date
+          state.formValues.end_date,
+          state.formValues.start_date
         );
       }
       return 0;

@@ -7,6 +7,6 @@ export function getCoupons() {
   return API.get(`${coupons}`);
 }
 
-export function getCoupon(id) {
-  return API.get(`${couponDetail}=${id}`);
+export function getCoupon(code) {
+  return API.get(`${couponDetail}=${code}`);
 }

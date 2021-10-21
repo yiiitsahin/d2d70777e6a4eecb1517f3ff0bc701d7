@@ -1,4 +1,6 @@
 import { getHotels, getHotelsDetails } from "@/api/routes/hotels";
+import { getCoupon } from "@/api/routes/coupons";
+
 import store from "@/store";
 
 const hotels = {
@@ -7,7 +9,7 @@ const hotels = {
   state: {
     hotels: [],
     hotelsDetails: [],
-    coupon: null,
+    usedCoupon: {},
   },
 
   getters: {
@@ -89,8 +91,8 @@ const hotels = {
         store.getters["hotels/roomPrice"]
       );
     },
-    discount() {
-      return 0;
+    discount(state) {
+      return (state.usedCoupon && state.usedCoupon.discount_ammount) || 0;
     },
     totalPrice() {
       const percentFactor = store.getters["hotels/percentFactor"];
@@ -99,7 +101,7 @@ const hotels = {
       const total = Math.floor(accommodationPrice * percentFactor - discount);
       return total;
     },
-    properties() {
+    properties(state) {
       const accommodationPrice = store.getters["hotels/accommodationPrice"];
       const adultCount = store.getters["hotels/adultCount"];
       const roomType = store.getters["hotels/roomType"];
@@ -115,6 +117,7 @@ const hotels = {
       const startDate =
         store.getters["reservations/formValues"].start_date || null;
       const endDate = store.getters["reservations/formValues"].end_date || null;
+      const coupon = state.usedCoupon;
       return {
         accommodationPrice,
         adultCount,
@@ -130,6 +133,7 @@ const hotels = {
         startDate,
         endDate,
         roomPrice,
+        coupon,
       };
     },
   },
@@ -142,7 +146,7 @@ const hotels = {
       state.hotelsDetails = data;
     },
     SET_COUPON(state, data) {
-      state.coupon = data;
+      state.usedCoupon = data;
     },
   },
 
@@ -161,6 +165,11 @@ const hotels = {
     },
     async SetCoupon({ commit }, data) {
       commit("SET_COUPON", data);
+    },
+    // eslint-disable-next-line no-empty-pattern
+    async GetCoupon({}, code) {
+      const coupon = await getCoupon(code);
+      return coupon.data;
     },
   },
 };
