@@ -2,7 +2,9 @@
   <div class="reservation-step">
     <div class="reservation-step__cols">
       <div class="reservation-step__content reservation-step__col">
-        <h3 class="required">Kredi Kartı Bilgileri</h3>
+        <div>
+          <PaymentForm />
+        </div>
       </div>
       <div class="reservation-step__col">
         <SelectedHotelDetailedInfo />
@@ -16,21 +18,25 @@
         >
       </div>
       <div>
-        <el-button type="primary">Ödeme Yap ve Bitir</el-button>
+        <el-button type="primary" @click="handleSubmit"
+          >Ödeme Yap ve Bitir</el-button
+        >
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import STEPS from "@/constants/reservationSteps";
 import { SelectedHotelDetailedInfo } from "@/components/hotels";
+import { PaymentForm } from "@/components/payment";
 
 export default {
   name: "PreviewAndPaymentStep",
   components: {
     SelectedHotelDetailedInfo,
+    PaymentForm,
   },
   data() {
     return {
@@ -42,6 +48,11 @@ export default {
       cardDateYear: null,
       cardCvv: null,
     };
+  },
+  computed: {
+    ...mapGetters({
+      isCardValid: "payment/isCardValid",
+    }),
   },
   mounted() {
     this.prepareForm();
@@ -65,6 +76,13 @@ export default {
     },
     handlePrevStep() {
       this.setStep(STEPS.ROOM_AND_SCENE);
+    },
+    handleSubmit() {
+      if (this.isCardValid) {
+        console.log("Ödeme işlemini bitir!!!!");
+      } else {
+        this.$message.warning("Lütfen zorunlu alanları kontrol ediniz.");
+      }
     },
   },
 };

@@ -16,7 +16,7 @@
         </div>
       </div>
     </div>
-    <div class="hotel-info-card">
+    <div class="hotel-info-card" v-if="!hideCouponCode">
       <CouponInput />
     </div>
     <div class="hotel-info-card">
@@ -58,6 +58,12 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "HotelInfoBox",
+  props: {
+    hideCouponCode: {
+      type: Boolean,
+      default: false,
+    },
+  },
   components: {
     CouponInput,
   },

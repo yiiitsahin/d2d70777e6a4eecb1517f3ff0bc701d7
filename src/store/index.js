@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import { hotels, reservations } from "./modules";
+import { hotels, reservations, payment } from "./modules";
 
 Vue.use(Vuex);
 
@@ -12,5 +12,6 @@ export default new Vuex.Store({
   modules: {
     reservations,
     hotels,
+    payment,
   },
 });

@@ -1,0 +1,12 @@
+.payment-form {
+  .el-form-item {
+    margin-bottom: 0;
+  }
+  &__label {
+    font-size: 14px;
+    margin: 5px 0;
+  }
+  &__row {
+    margin-bottom: 15px;
+  }
+}
